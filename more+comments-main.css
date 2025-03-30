@@ -1,0 +1,380 @@
+
+body {
+    margin:auto;
+    background-color:red;
+}
+
+/*This is the css coding for navbar*/
+.navbar ul {
+    list-style-type:none;
+    background-image: url(../Images/amanda-jones-P787-xixGio-unsplash.jpg);
+    background-repeat: no-repeat;
+    padding:5px;
+    margin:0px;
+    overflow:hidden;
+    font-size:30px;
+    border: 6px solid darkred
+}
+
+.navbar {
+    color:white;
+    display:block;
+    text-align:center;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+}
+
+.navbar a:hover {
+    background-color:red;  
+    text-decoration:none;
+    font-size:30px;
+}
+
+.navbar li {
+    float:left;
+    padding:50px;
+}
+
+/*This is the grid layout for home page (index.html)*/
+.banner {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows:auto;       
+}
+
+/*This is the grid layout code used for page 2 (card-rankings.html)*/
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows:auto;
+    grid-template-areas:
+        "trash okay good"
+        "uncommon straight flush"
+        "house rare super-rare"      
+}
+
+
+/*These are the grid layout codes used somewhere in page 3 (rules.html)*/
+.rules-container {
+    display: grid;
+    grid-template-columns:1fr 1fr 1fr;
+    grid-template-rows:auto;
+    grid-template-areas:
+        "call raise fold"
+}
+
+.flop-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows:auto;
+    grid-template-areas:
+        "flops-info image-position"
+}
+
+.advice-container  {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows:auto;
+    grid-template-areas:
+        "image-position advice"
+}
+
+.box {
+    border: 5px solid darkred;
+    background-color:red;
+}
+/*The grid layout codes, It helps me position where I want to put my divs in my website*/
+/*These are grid layout codes from all pages*/
+.good {
+    height:40vh;
+
+}
+
+.flush {
+    height:40vh;
+}
+
+.super-rare {
+  height:40vh;  
+}
+
+.call, .raise, .fold {
+    text-align:center;
+    margin:50px;
+    border:5px dashed white;
+}
+
+.flops-info, .advice {
+    border: 4px dashed white;
+    border-radius:3px;
+    height:60vh;
+    width:400px;
+}
+
+.image-position {
+    margin-left:50px;
+    margin-right:100px;
+}
+/*setting the positions for my divs*/
+/*grid layout code ends here*/
+
+/*These are styles for images with classes for this website*/
+.copyright {
+    width:100%;
+    height:100%;
+}
+
+.Header-Image {
+    width:100%;
+}
+
+.img {
+    height:100vh;
+    margin-top:25px;
+    margin:10px;
+}
+
+.cards, .rule-image {
+    border: 10px solid darkred;
+    width:80%;
+    margin-top:100px;
+}
+
+.a-good-hand {
+    width: 100%;
+}
+
+.fancy-image {
+    height:100vh;
+    width:100%
+}
+
+.royal-flush {
+  width:100%;
+}
+
+.image, .image-2 {
+    border: 4px solid white;
+    border-radius:3px;
+    height:60vh;
+}
+/*NOTE: Some of the images are just coded so it fits with the size of a div box*/
+/*Coding for images ends here*/
+
+
+/*First Page Coding*/
+.item-1, .item-2, .item-3 {
+    color:white;
+}
+
+.item-2 {
+    text-align:center;
+}
+
+.item-1, .item-3 {
+    text-align:center;
+}
+
+.link-1, .link-2 {
+    margin-top:-7px;
+    font-size:40px;
+    font-weight:normal;
+    text-decoration:underline;
+    color:white;
+}
+
+/*These links have hover effect so the user can click on them seeing how they're important*/
+.link-1:hover {
+    font-family: "Merriweather", serif;
+    margin-top:-7px;
+    font-size:35px;
+    font-weight:500; /* instead of using 'bold' or 'normal' I used numbers so I can specifically determine how strong the font weight should be*/
+    text-decoration:none;
+    color:lightskyblue;  /*Used the color 'lightskyblue' for both classes so color blinded, that can't see red, people can see it*/
+}
+
+.link-2:hover {
+    font-family: "Merriweather", serif;
+    margin-top:-7px;
+    font-size:40px;
+    font-weight:500;
+    text-decoration:none;
+    color:lightskyblue;
+}
+/*ends here, had to code them seperately*/
+
+h1 {
+    margin-top:100px;
+    font-size:85px;
+    margin-bottom:-45px;
+}
+
+h2 {
+    font-size:60px;
+    font-weight:normal;
+}
+/*First Page (index.html) coding ends here*/
+
+/*Second Page (card-rankings.html) Coding starts here*/
+
+/*This is the css coding for navbar*/
+.navbar ul {
+    list-style-type:none;
+    background-image: url(../Images/amanda-jones-P787-xixGio-unsplash.jpg);
+    background-repeat: no-repeat;
+    padding:5px;
+    margin:0px;
+    overflow:hidden;
+    font-size:30px;
+    border: 6px solid darkred
+}
+
+.navbar {
+    color:white;
+    display:block;
+    text-align:center;
+/*I think it cuts each of my navbar a into slices*/
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+}
+
+.navbar a:hover {
+    background-color:red;  
+    text-decoration:none;
+    font-size:30px;
+/*For the hover effect, added background color and adjusted the font size*/
+}
+
+.navbar li {
+    float:left;
+    padding:50px;
+}
+
+.link-3 {
+    text-decoration:none;
+    color:white;
+}
+
+.ranking-info {
+    display:inline-block;
+    color:white;
+    background-color:darkgreen;
+    border:3.5px solid black;
+    border-radius:5px;
+    height:40vh;
+    width:300px;
+    text-align:center;
+    margin-left:40px;
+    margin-right:40px;
+    margin-top:25px; 
+/*Added borders for clarity, and the display makes my div algined equally in height*/
+}
+
+.bold {
+    font-size:30px;
+    text-decoration:underline;
+    font-weight:600;
+    margin-bottom:-5px;
+}
+
+.font-adjusting {
+    font-family: "Merriweather", serif;
+    font-size:45px;
+    text-decoration:underline;
+    margin-left:85px;
+}
+
+.alignment {
+    text-align:left;
+    margin-top:2px;
+    margin-bottom:5px;
+/*    This class' purpose is to align the bulletpoints to the left, also used somewhere in page 3*/
+}
+
+.royal {
+    border:10px solid darkred;
+    border-radius:3px;
+    background-color:darkgreen;
+    height:80vh;
+    color:white;
+    margin:20px;
+/*Added a border bigger than the rest of divs on page 2 with a higher vertical height*/
+}
+
+.royal-hand {
+    border:4px solid white;
+    border-radius:3px;
+    height:40vh;
+    width:340px;
+    margin-left:30px;
+/*The border for my image that represents the royal flush*/
+}
+
+.royal-frame {
+    border-left: 4px dashed white;
+    border-radius:3px;
+    height:40vh;
+    width:700px;
+    margin-left:500px;
+    margin-top:-300px;
+/*The left border for the bulletpoints that gives information aboout the royal flush*/
+}
+
+.font-size-align {
+    text-align:left;
+    font-size:35px;
+    margin-left:10px;
+    font-family: "Merriweather", serif;
+/*    This class purpsoe is to align the bulletpoints to the left while removing the bulletpoints and changing font-family*/
+}
+/*coding for second page ends here*/
+
+/*third page coding (rules.html) starts here*/
+.sections {
+    border:10px solid darkred;
+    border-radius:3px;
+    background-color:darkgreen;
+    color:white;
+    height:63vh;
+    margin:40px;
+    padding:30px;
+}
+
+em {
+    font-family: "Merriweather", serif;
+    font-size:15px;
+    padding:5px;
+}
+
+bold {
+    font-weight:bold;
+    font-family: "Merriweather", serif;
+    font-size:20px;
+    padding:5px;
+}
+
+.B-old {
+    font-size:30px;
+    text-decoration:underline;
+/*    This class is also used in page 2*/
+}
+
+
+span {
+    font-size:30px;
+    color:white;
+    text-decoration:underline;
+    text-align:left;
+}
+
+p {
+    text-align:left;
+    margin-left:15px;
+    margin-bottom:20px;
+}
