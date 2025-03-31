@@ -13,24 +13,23 @@ body {
     margin:0px;
     overflow:hidden;
     font-size:30px;
-    border: 6px solid darkred
+    border: 6px solid darkred;
 }
 
 .navbar {
-    color:white;
+    color:darkgreen;
     display:block;
     text-align:center;
 }
 
 .navbar a {
     text-decoration: none;
-    color: white;
+    color: darkgreen;
 }
 
 .navbar a:hover {
     background-color:red;  
     text-decoration:none;
-    font-size:30px;
 }
 
 .navbar li {
@@ -227,18 +226,17 @@ h2 {
     margin:0px;
     overflow:hidden;
     font-size:30px;
-    border: 6px solid darkred
+    border: 6px solid darkred;
 }
 
 .navbar {
-    color:white;
+    color:darkgreen;
     display:block;
     text-align:center;
 }
 
 .navbar a {
     text-decoration: none;
-    color: white;
 }
 
 .navbar a:hover {
@@ -251,6 +249,7 @@ h2 {
     float:left;
     padding:50px;
 }
+/*css coding for navbar ends here*/
 
 .link-3 {
     text-decoration:none;
@@ -268,7 +267,8 @@ h2 {
     text-align:center;
     margin-left:40px;
     margin-right:40px;
-    margin-top:25px;    
+    margin-top:25px;  
+/*giving a border and adjusting margins and changing display style to the way I want*/
 }
 
 .bold {
@@ -299,6 +299,7 @@ h2 {
     height:80vh;
     color:white;
     margin:20px;
+/*giving this div the biggest border and larger vertical height than rest so it looks important*/
 }
 
 .royal-hand {
@@ -307,6 +308,7 @@ h2 {
     height:40vh;
     width:340px;
     margin-left:30px;
+/*Adding a border for the image that represents the royal flush*/
 }
 
 .royal-frame {
@@ -315,7 +317,8 @@ h2 {
     height:40vh;
     width:700px;
     margin-left:500px;
-    margin-top:-300px
+    margin-top:-300px;
+/*making a left border for my bullet points to the right side of the royal flush image*/
 }
 
 .font-size-align {
@@ -336,6 +339,7 @@ h2 {
     height:63vh;
     margin:40px;
     padding:30px;
+/*setting up a border for each div with spaces and same vertical height to show they're equally important*/
 }
 
 em {
