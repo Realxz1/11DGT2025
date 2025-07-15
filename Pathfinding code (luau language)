@@ -1,0 +1,17 @@
+-- creating a script storing codes for 'Pathfinding' for the sprites considered as 'mobs' in the game--
+
+local Noob = script.Parent
+-- creating a variable to only be used in this script 'Pathfinding' only. --
+
+local Waypoints = workspace.Waypoints_Beginners
+-- creating a variable  from the 'workspace' where every sprite and scripts are contained, mainly referring to folder its on 
+-- which is'Waypoints_Beginners'.--
+
+for Waypoint = 1, #Waypoints:GetChildren() do
+	Noob.Humanoid:MoveTo(Waypoints[Waypoint].Position)
+	Noob.Humanoid.MoveToFinished:Wait()
+end
+-- This is basically a loop where the the sprite, otherwise models in luau, moves to every waypoints in the folder 'Waypoints_Beginners--
+-- humanoid in luau means a sprite that has a player-like behaviour--
+-- moveTo is a function that moves the sprite to a specific place, which is the waypoints--
+-- GetChildren, in this case, is a function that collects all the parts (Waypoints) inside the folder Waypoints_Beginners--
