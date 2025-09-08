@@ -1,0 +1,44 @@
+local ServerStorage = game: GetService("ServerStorage")
+local RStorage = game: GetService("ReplicatedStorage")
+
+local bindables = ServerStorage:WaitForChild("Bindables")
+local events = RStorage:WaitForChild("Events")
+local updateBaseHealthEvent = bindables:WaitForChild("UpdateBaseHealth")
+local gameFinishEvent = events:WaitForChild("GameFinished")
+
+local base = {}
+
+--Creating a function to make the base equal to the game's map
+function base.Setup(map, health)
+	base.Model = map:WaitForChild("Base")
+	base.CurrentHealth = health
+	base.MaxHealth = health
+	
+	 base.UpdateHealth()
+end
+-- Function to update the base Health when a mob hits it
+function base.UpdateHealth(damage)
+	if damage then
+		base.CurrentHealth -= damage
+	end
+	
+	local gui = base.Model.HealthGui
+	local percent = base.CurrentHealth / base.MaxHealth
+	
+	-- Sets the healthbar's size to the percent of the health
+	gui.CurrentHealth.Size = UDim2.new(percent, 0, 0.5, 0)
+	
+	gui.Parent.Health.Value = base.CurrentHealth
+	
+	if base.CurrentHealth <= 0 then
+		--gameFinishEvent:FireServer()
+		gui.Title.Text = "You Lose: Womp Womp"
+	else
+		gui.Title.Text = "Base: " .. base.CurrentHealth .. "/" .. base.MaxHealth
+	end
+	
+end
+
+updateBaseHealthEvent.Event:Connect(base.UpdateHealth)
+
+return base
