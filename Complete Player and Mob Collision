@@ -1,0 +1,18 @@
+--Creating a script so the Players wont collide with the mobs
+local Players = game:GetService("Players")
+local PhysicsService = game: GetService("PhysicsService")
+
+Players.PlayerAdded:Connect(function(player)
+	player.CharacterAdded:Connect(function(character)
+		for i, object in ipairs(character:GetDescendants()) do
+			if object:IsA("BasePart") then
+				PhysicsService:SetPartCollisionGroup(object, "Mob")
+			end
+		end
+	end)
+end)
+-- This script ensures that the player wont collide with the mobs when playing. 
+--It does this by checking if the player is in contact with mobs, 
+--it would look under the Mobs folder (child) inside ServerStorage and the sprites(descendants), inside the mob folders
+--and will make the player not collide with the mobs during gameplay.
+-- Every Sprite in the game will contain as "BasePart" which is essentially the core of the sprite that can collide with players
