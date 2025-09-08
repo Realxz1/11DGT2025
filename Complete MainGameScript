@@ -1,0 +1,179 @@
+-- This is Ven and Kurt's code
+
+--local KumaraFarm = game.ReplicatedStorage.Towers.KumaraFarm
+
+-- Local means making/assigning a new variable
+local RStorage = game: GetService("ReplicatedStorage")
+
+local InRound = RStorage:WaitForChild("InRound")
+local Status = RStorage:WaitForChild("Status")
+
+local events = RStorage:WaitForChild("Events")
+local gameFinishEvent = events:WaitForChild("GameFinished")
+local gameStartEvent = events:WaitForChild("StartGame")
+
+local base = require(script.Base)
+local mob = require(script.Mob)
+local tower = require(script.Tower)
+local map = workspace.Beginners_Map
+
+local GameAreaSpawn = game.Workspace.GameAreaSpawn
+local LobbySpawn = game.Workspace.LobbySpawn
+
+
+-- Setting the game music, base hp, round length and intermission length.
+local gametheme = game.SoundService.InGame
+local lobbytheme = game.SoundService.lobbyMusicTDS
+local roundLength = 180
+local intermessionLength = 12
+local gameOver = false
+local spawning = false
+
+base.Setup(map, 500)
+
+
+-- Function to create the 'GameOver' event
+gameFinishEvent.OnServerEvent:Connect(function(plr)
+	task.wait(5)
+	local char = plr.Character
+	char.HumanoidRootPart.CFrame = LobbySpawn.CFrame
+	InRound.Value = false
+	gameOver = true
+	
+	--gameFinishEvent:FireClient(plr)
+end)
+-- This is repetitve coding where if a certain wave is lower,
+--it will keep spawning mobs untill a new wave starts,
+--which will then spawn new mobs onto the current existing mobs untill a Boss spawns,
+--stopping this code.
+local function MobSpawning(wave)
+	if gameOver then return end
+	spawning = true
+	if wave <= 3 then
+		-- This amount of mobs spawned is based off wave number mulitplied by 3. The map just determines where the mob will spawn.
+		--For example, if the wave is 1, then 3 "Normal" mobs will spawn,
+		--if the wave is 2, then 6 "Normal" mobs will spawn and etc.
+		mob.Spawn("Normal", 3 * wave, map)
+	elseif wave <=5 then
+		-- This means that when a wave is 4, then instead of 12 speedy mobs spawned,
+		--only 3 will because 3*(4-3 = 1).
+		mob.Spawn("Speedy", 3 * (wave-3), map)
+		mob.Spawn("Normal", 5 * (wave-3), map)
+	elseif wave <= 7 then
+		mob.Spawn("Tanky", 2 * (wave-5), map)
+		mob.Spawn("Speedy", 2 * (wave-5), map)
+		mob.Spawn("Normal", 2 * (wave-5), map)
+	elseif wave < 10 then
+		mob.Spawn("Normal", 5 * (wave-7), map)
+		mob.Spawn("Speedy", 10 * (wave-7), map)
+		mob.Spawn("Tanky", 3 * (wave-7), map)
+	elseif wave == 10 then
+		mob.Spawn("Giant",1,map)
+	elseif wave == 11 then
+		mob.Spawn("Invisible", 10, map)
+	elseif wave ==12 then
+		mob.Spawn("Invisible", 10, map)
+		mob.Spawn("Normal", 15, map)
+		mob.Spawn("Tanky", 7, map)
+		mob.Spawn("Speedy", 12, map)
+		mob.Spawn("Giant", 2, map)
+	elseif wave == 13 then
+		mob.Spawn("Flying", 10, map)
+	elseif wave == 14 then
+		mob.Spawn("Invisible", 7, map)
+		mob.Spawn("Speedy", 15, map)
+		mob.Spawn("Tanky", 10, map)
+		mob.Spawn("Flying", 7, map)
+	elseif wave == 15 then
+		mob.Spawn("Wood", 25, map)
+	elseif wave <=17 then
+		mob.Spawn("Giant", 3 * (wave-15), map)
+		mob.Spawn("Wood", 5 * (wave-15), map)
+		mob.Spawn("Invisible", 15 * (wave-15), map)
+		mob.Spawn("Flying", 10 * (wave-15), map)
+	elseif wave == 18 then
+		mob.Spawn("Giant", 1 * (wave-17), map)
+		mob.Spawn("Normal", 30 * (wave-17), map)
+		mob.Spawn("Speedy", 25 * (wave-17), map)
+		mob.Spawn("Tanky", 20 * (wave-17), map)
+		mob.Spawn("Flying", 15 * (wave-17), map)
+		mob.Spawn("Wood", 15 * (wave-17), map)
+		mob.Spawn("Invisible", 15 * (wave-17), map)
+	elseif wave == 19 then
+		mob.Spawn("Giant", 10 * (wave-18), map)
+	elseif wave == 20 then
+		mob.Spawn("Boss", 1 * (wave-19), map)
+	end
+	spawning = false
+end
+
+local function FormatTimer(seconds)
+	return math.modf(seconds/60) ..":"..string.format("%02d",seconds%60) -- Formats time in seconds into MM:SS format
+end
+
+InRound.Value = false
+gameStartEvent.OnServerEvent:Connect(function()
+	lobbytheme:Stop()
+	gametheme:Play()
+	InRound.Value = true
+	
+	for _, player in pairs(game.Players:GetChildren()) do
+		local char = player.Character
+		char.HumanoidRootPart.CFrame = GameAreaSpawn.CFrame
+	end
+	-- This is a for loop code that spawns the mobs referencing from the
+	--"ServerStorage" under Mob folder where all the different types of mobs are located.
+	for wave=1, 20 do
+		--local GetMoney = KumaraFarm:GetAttribute("Money")
+		--local player = game.Players:GetPlayers()[1]
+
+		--player:WaitForChild("leaderstats").Money.Value += GetMoney
+		--print(GetMoney)
+		
+		-- This is a loop that reduces the intermission time by 1 second untill it reaches 0
+		print("INTERMISSION")
+		for i = intermessionLength, 0, -1 do
+			wait(1)
+			Status.Value = "Intermission: "..FormatTimer(i)
+		end
+
+		task.wait(.1)
+		print("WAVE STARTING", wave)
+		task.spawn(MobSpawning,wave)
+		-- This is a loop that reduces the round time by 1 second until it reaches 0
+		for i = roundLength, 0, -1 do
+			wait(1)
+			Status.Value = "Wave "..wave..": "..FormatTimer(i)
+			
+			-- If statements for the mobs to stop spawning if the player's base hp reches 0 or the player wins
+			if (#map.Mob:GetChildren() == 0 and spawning == false) or base.CurrentHealth <= 0 then break end
+		end 
+		-- This one as well (If statements) to fire the 'gameOver' event
+		if base.CurrentHealth <= 0 then
+			gameOver = true
+			for _,v in pairs(map.Mob:GetChildren()) do
+				v.Humanoid.Health = 0
+			end
+			break
+		end
+	end
+	
+	-- This is if statements that fires an event that will tell the players if you lost or won the game.
+	if gameOver  then
+		print("GAME OVER")
+		gameFinishEvent:FireAllClients("GAME OVER")
+		Status.Value = "Game Over!"
+	else
+		print("GAME FINISHED")
+		gameFinishEvent:FireAllClients("GAME FINISH")
+		Status.Value = "Survived!"
+
+		for i,plr in ipairs(game.Players:GetPlayers()) do
+			--plr.leaderstats.Wins.Value += 1
+			plr.leaderstats.Gems.Value += 20
+		end
+	end
+end)
+
+
+lobbytheme:Play()
