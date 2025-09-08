@@ -1,0 +1,75 @@
+--Creating a module (to spawn mobs the enemies) for the game in the main server script of our game--
+local ServerStorage = game: GetService("ServerStorage")
+local ServerStorage = game:GetService("ServerStorage")
+local PhysicsService = game: GetService("PhysicsService")
+
+local towerModule = require(script.Parent:WaitForChild("Tower"))
+
+local bindables = ServerStorage:WaitForChild("Bindables")
+local updateBaseHealthEvent = bindables:WaitForChild("UpdateBaseHealth")
+
+local mob = {}
+
+-- creating a function storing codes for 'Pathfinding' for the sprites considered as 'mobs' in the game--
+function mob.Move(mob, map)
+	local humanoid = mob:WaitForChild("Humanoid")
+	local Waypoints = map.Waypoints_Beginners
+
+	for Waypoint = 1, #Waypoints:GetChildren() do
+		mob.NextWaypoint.Value = Waypoint
+		humanoid:MoveTo(Waypoints[Waypoint].Position)
+		humanoid.MoveToFinished:Wait()
+	end
+	
+	mob:Destroy()
+	
+	updateBaseHealthEvent:Fire(humanoid.Health)
+	
+end
+-- creating a function to spawn in the sprites (mobs) into the map and its specific location --
+function mob.Spawn(name, quantity, map)
+	local mobExists = ServerStorage.Mobs:FindFirstChild(name)
+	
+	-- all this coding work inside this 'function', checks that if the mob exists, it would clone it, set its position and add it into the workspace --
+	if mobExists then
+		for i=1, quantity do
+			task.wait(0.5)
+			local newMob = mobExists:Clone()
+			newMob.HumanoidRootPart.CFrame = map.Start.CFrame --Cframe means coordinate frame which refers to its position in the game (world) so the mobs will be spawned in the correct position and orientation
+			newMob.Parent = map.Mob
+			newMob.HumanoidRootPart:SetNetworkOwner(nil)
+			newMob.Humanoid.WalkSpeed = newMob:GetAttribute("Speed") -- Kurt's line of code
+			newMob:AddTag("Enemy")
+			
+			-- Code for making the mobs move to next way points based of the way point number
+			local nextWaypoint = Instance.new("IntValue")
+			nextWaypoint.Name = "NextWaypoint"
+			nextWaypoint.Parent = newMob
+			-- Code that links with the Collision code on the other script in "OnPlayer"
+			-- This makes it so the mobs can go through each other if one mob is faster/slower than other.			
+			for i, object in ipairs(newMob:GetDescendants()) do
+				if object:IsA("BasePart") then
+					PhysicsService:SetPartCollisionGroup(object, "Mob")
+				end
+			end
+			
+			-- This code means if the mob dies, it will grant money depending on its HP divided by 10 and save it to the leaderboard
+			newMob.Humanoid.Died:Connect(function()
+				task.wait(0.5)
+				game.Players:GetChildren()[1].leaderstats.Money.Value += newMob.Humanoid.MaxHealth/10
+				towerModule.MoneyBoost(newMob.Humanoid.MaxHealth/10)
+				newMob:Destroy()
+			end)
+
+			coroutine.wrap(mob.Move)(newMob, map)
+		end
+		
+	else
+		warn("Requested mob does not exist", name)
+	end
+end
+--Note: Workspace basically just means our game--
+
+return mob
+
+-- This module (script inside a script) is made by Ventresco, slightly tweaked by Kurt
